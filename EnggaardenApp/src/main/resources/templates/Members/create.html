@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<form action="/create" method="post">
+    <h1>Create a student by filling out the forms</h1>
+    <p>Member firstname</p>
+    <input type="text" th:field="${member.firstName}" placeholder="'Mickey'"/>
+    <p>Member lastname</p>
+    <input type="text" th:field="${member.lastName}" placeholder="'Smith'"/>
+    <p>Member mail</p>
+    <input type="text" th:field="${member.mail}" placeholder="'Example@mail.com'"/>
+    <p>Phone Number</p>
+    <input type="text" th:field="${member.phoneNumber}" placeholder="'11223344'"/>
+
+    <p>Member creation date</p>
+    <input type="date" th:field="${member.creationDate}"/>
+
+    <p>Member type</p>
+    <select th:field="${member.memberType}">
+        <option th:each="memberType :${memberTypes}" th:value="${memberType}" th:text="${memberType}"/>
+    </select>
+    <!--
+    <p>Bestyrelsesmedlem</p>
+    <input type="checkbox" th:checked="${member.isBoard}" /> -->
+    <br><br>
+    <input type="submit" value="Opret"/>
+</form>
+
+
+</body>
+</html>
