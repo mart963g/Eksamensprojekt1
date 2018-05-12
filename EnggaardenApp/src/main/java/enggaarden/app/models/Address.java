@@ -1,9 +1,17 @@
 package enggaarden.app.models;
 
-public class Address {
+public class Address
+{
+    /*
+    Fields
+     */
     private String street;
     private int zipCode;
     private String city;
+
+    /*
+    Constructors
+     */
 
     public Address()
     {
@@ -16,31 +24,33 @@ public class Address {
         this.city = city;
     }
 
+    /*
+    Getters
+     */
     public String getStreet()
     {
         return street;
     }
-
-    public void setStreet(String street)
-    {
-        this.street = street;
-    }
-
     public int getZipCode()
     {
         return zipCode;
     }
-
-    public void setZipCode(int zipCode)
-    {
-        this.zipCode = zipCode;
-    }
-
     public String getCity()
     {
         return city;
     }
 
+    /*
+    Setters
+     */
+    public void setStreet(String street)
+    {
+        this.street = street;
+    }
+    public void setZipCode(int zipCode)
+    {
+        this.zipCode = zipCode;
+    }
     public void setCity(String city)
     {
         this.city = city;

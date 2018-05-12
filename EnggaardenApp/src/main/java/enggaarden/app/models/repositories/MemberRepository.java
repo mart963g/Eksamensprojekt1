@@ -1,18 +1,11 @@
 package enggaarden.app.models.repositories;
 
-import enggaarden.app.models.Address;
 import enggaarden.app.models.Member;
-import enggaarden.app.models.MemberType;
-import enggaarden.app.models.Subscription;
 import enggaarden.app.models.interfaces.MemberRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
-
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.List;
 
 @Repository
 public class MemberRepository implements MemberRepositoryInterface
@@ -20,18 +13,19 @@ public class MemberRepository implements MemberRepositoryInterface
     @Autowired
     private JdbcTemplate jdbc;
 
+    // Members for members_overview.html
     @Override
     public SqlRowSet get()
     {
         String sql = "SELECT * FROM Members m " +
-                "JOIN Addresses a USING (memberId) " +
-                "JOIN Subscriptions s USING (memberId);";
+                     "JOIN Subscriptions s USING (memberId);";
 
         SqlRowSet rowSet = jdbc.queryForRowSet(sql);
 
         return rowSet;
     }
 
+    // Full member for member_details.html
     @Override
     public SqlRowSet get(int id)
     {
@@ -43,6 +37,7 @@ public class MemberRepository implements MemberRepositoryInterface
         return rowSet;
     }
 
+    // Posting a full member to the db !!!!NOT COMPLETE!!!!
     @Override
     public void postMember(Member member)
     {
@@ -51,24 +46,18 @@ public class MemberRepository implements MemberRepositoryInterface
         rowSet.next();
         int i = rowSet.getInt(1);
 
-        String pattern = "yyyy-MM-dd";
-        SimpleDateFormat format = new SimpleDateFormat(pattern);
-        String date = format.format(member.getCreationDate());
-
-
-
         String sqlMem = "INSERT INTO members VALUES" +
                 "(" + (i+1) + ", '" +
                 member.getFirstName() + "', '" +
                 member.getLastName() + "', '" +
                 member.getMail() + "', " +
                 member.getPhoneNumber() + ", '" +
-                date + "', '" +
+                member.getSqlDate() + "', '" +
                 member.getMemberType().toString() + "', " +
-                true +
-                ")";
+                member.isBoard() + ");";
 
         jdbc.update(sqlMem);
+
         /*
         String sqlAdd = "INSERT INTO addresses VALUES(" +
                 (i+1) + ", '" +
@@ -78,9 +67,10 @@ public class MemberRepository implements MemberRepositoryInterface
 
         jdbc.update(sqlAdd);
 
+
         String sqlSub = "INSERT INTO subscriptions VALUES(" +
                 (i+1) + ", '" +
-                member.getSubscription().getPayDay() + "')";
+                member.getSubscription().getSqlDate() + "')";
 
         jdbc.update(sqlSub);
         */

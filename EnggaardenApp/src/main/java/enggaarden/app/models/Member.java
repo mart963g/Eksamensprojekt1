@@ -1,10 +1,15 @@
 package enggaarden.app.models;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
-import java.sql.Date;
-
-public class Member {
+public class Member
+{
+    /*
+    Fields
+     */
     private int memberId;
     private String firstName;
     private String lastName;
@@ -15,14 +20,18 @@ public class Member {
     private Address address;
     private Subscription subscription;
     private MemberType memberType;
-    private boolean isBoard;
+    public boolean isBoard;
 
+    /*
+    Constructors
+     */
     public Member()
     {
         this.address = new Address();
         this.subscription = new Subscription();
     }
 
+    // Full Member Constructor
     public Member(int memberId, String firstName,
                   String lastName, String mail,
                   int phoneNumber, Date creationDate,
@@ -41,118 +50,112 @@ public class Member {
         this.isBoard = isBoard;
     }
 
-    public Member(String firstName,
+    // Member overview Constructor
+    public Member(int memberId, String firstName,
                   String lastName, String mail,
                   int phoneNumber, Date creationDate,
-                  String street, int zipCode, String city,
                   Date payDay, MemberType memberType, boolean isBoard)
     {
+        this.memberId = memberId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phoneNumber = phoneNumber;
         this.mail = mail;
         this.creationDate = creationDate;
-        this.address = new Address(street,zipCode,city);
         this.subscription = new Subscription(payDay);
         this.memberType = memberType;
         this.isBoard = isBoard;
     }
 
+
+    /*
+    Getters
+     */
     public int getMemberId()
     {
         return memberId;
     }
-
-    public void setMemberId(int memberId)
-    {
-        this.memberId = memberId;
-    }
-
-    public String getFirstName()
-    {
-        return firstName;
-    }
-
-    public void setFirstName(String firstName)
-    {
-        this.firstName = firstName;
-    }
-
     public String getLastName()
     {
         return lastName;
     }
-
-    public void setLastName(String lastName)
-    {
-        this.lastName = lastName;
-    }
-
     public int getPhoneNumber()
     {
         return phoneNumber;
     }
-
-    public void setPhoneNumber(int phoneNumber)
+    public String getFirstName()
     {
-        this.phoneNumber = phoneNumber;
+        return firstName;
     }
-
     public String getMail()
     {
         return mail;
     }
-
-    public void setMail(String mail)
-    {
-        this.mail = mail;
-    }
-
     public Date getCreationDate()
     {
         return creationDate;
     }
-
-    public void setCreationDate(Date creationDate)
-    {
-        this.creationDate = creationDate;
-    }
-
     public Address getAddress()
     {
         return address;
     }
-
-    public void setAddress(Address address)
-    {
-        this.address = address;
-    }
-
     public Subscription getSubscription()
     {
         return subscription;
     }
-
-    public void setSubscription(Subscription subscription)
-    {
-        this.subscription = subscription;
-    }
-
     public MemberType getMemberType()
     {
         return memberType;
     }
-
-    public void setMemberType(MemberType memberType)
-    {
-        this.memberType = memberType;
-    }
-
     public boolean isBoard()
     {
         return isBoard;
     }
+    public String getSqlDate()
+    {
+        DateFormat correctFormat = new SimpleDateFormat("yyyy-MM-dd");
+        return correctFormat.format(this.creationDate);
+    }
 
+    /*
+    Setters
+     */
+    public void setMemberId(int memberId)
+    {
+        this.memberId = memberId;
+    }
+    public void setFirstName(String firstName)
+    {
+        this.firstName = firstName;
+    }
+    public void setLastName(String lastName)
+    {
+        this.lastName = lastName;
+    }
+    public void setPhoneNumber(int phoneNumber)
+    {
+        this.phoneNumber = phoneNumber;
+    }
+    public void setMail(String mail)
+    {
+        this.mail = mail;
+    }
+    public void setCreationDate(Date creationDate)
+    {
+        this.creationDate = creationDate;
+    }
+    public void setAddress(Address address)
+    {
+        this.address = address;
+    }
+    public void setSubscription(Subscription subscription)
+    {
+        this.subscription = subscription;
+    }
+    public void setMemberType(MemberType memberType)
+    {
+        this.memberType = memberType;
+    }
     public void setBoard(boolean board)
     {
         isBoard = board;
