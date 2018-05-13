@@ -73,6 +73,10 @@ input {
     border-radius: .25rem;
 }
 
+input::placeholder {
+    font-style:italic;
+}
+
 /* Buttons */
 /* https://www.w3schools.com/css/css3_buttons.asp */
 

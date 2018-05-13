@@ -1,5 +1,6 @@
 package enggaarden.app.controllers;
 
+import enggaarden.app.models.Address;
 import enggaarden.app.models.Factories.MemberFactory;
 import enggaarden.app.models.Member;
 import enggaarden.app.models.MemberType;
@@ -17,7 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class MemberController
 {
     @Autowired
-    MemberRepositoryInterface memberRepository = new MemberRepository();
+    private MemberRepositoryInterface memberRepository = new MemberRepository();
     private MemberFactory memberFactory = new MemberFactory();
 
     @GetMapping("/members")
@@ -32,14 +33,15 @@ public class MemberController
     {
         model.addAttribute("member",new Member());
         model.addAttribute("memberTypes", MemberType.values());
+        model.addAttribute("address", new Address());
         model.addAttribute("subscription", new Subscription());
         return "/Members/create_member";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Member member)
+    public String create(@ModelAttribute Member member, Address address, Subscription subscription)
     {
-        memberRepository.postMember(member);
+        memberRepository.postMember(member, address, subscription);
         return "redirect:/members";
     }
 }

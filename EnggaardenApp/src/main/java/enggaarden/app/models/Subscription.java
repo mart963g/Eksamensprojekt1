@@ -33,15 +33,16 @@ public class Subscription {
     {
         return(payDay!=null);
     }
+    public Date getPayDay()
+    {
+        return payDay;
+    }
     public String getSqlDate()
     {
         DateFormat correctFormat = new SimpleDateFormat("yyyy-MM-dd");
         return correctFormat.format(this.payDay);
     }
-    public Date getPayDay()
-    {
-        return payDay;
-    }
+
 
     /*
     Setters

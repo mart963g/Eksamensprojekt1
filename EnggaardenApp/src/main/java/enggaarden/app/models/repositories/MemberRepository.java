@@ -1,6 +1,8 @@
 package enggaarden.app.models.repositories;
 
+import enggaarden.app.models.Address;
 import enggaarden.app.models.Member;
+import enggaarden.app.models.Subscription;
 import enggaarden.app.models.interfaces.MemberRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -37,9 +39,9 @@ public class MemberRepository implements MemberRepositoryInterface
         return rowSet;
     }
 
-    // Posting a full member to the db !!!!NOT COMPLETE!!!!
+    // Posting a full member to the db
     @Override
-    public void postMember(Member member)
+    public void postMember(Member member, Address address, Subscription subscription)
     {
         String count = "SELECT MAX(memberId) FROM Members";
         SqlRowSet rowSet = jdbc.queryForRowSet(count);
@@ -58,22 +60,22 @@ public class MemberRepository implements MemberRepositoryInterface
 
         jdbc.update(sqlMem);
 
-        /*
+
         String sqlAdd = "INSERT INTO addresses VALUES(" +
                 (i+1) + ", '" +
-                member.getAddress().getStreet() + "', " +
-                member.getAddress().getZipCode() + ", '" +
-                member.getAddress().getCity() + "')";
+                address.getStreet() + "', " +
+                address.getZipCode() + ", '" +
+                address.getCity() + "')";
 
         jdbc.update(sqlAdd);
 
 
         String sqlSub = "INSERT INTO subscriptions VALUES(" +
                 (i+1) + ", '" +
-                member.getSubscription().getSqlDate() + "')";
+                subscription.getSqlDate() + "')";
 
         jdbc.update(sqlSub);
-        */
+
     }
 
     @Override

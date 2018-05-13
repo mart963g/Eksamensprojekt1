@@ -31,7 +31,7 @@ public class Member
         this.subscription = new Subscription();
     }
 
-    // Full Member Constructor
+    // Full Member for member_details.html
     public Member(int memberId, String firstName,
                   String lastName, String mail,
                   int phoneNumber, Date creationDate,
@@ -50,7 +50,24 @@ public class Member
         this.isBoard = isBoard;
     }
 
-    // Member overview Constructor
+    // Standalone member for post method
+    public Member(int memberId, String firstName,
+                  String lastName, String mail,
+                  int phoneNumber, Date creationDate,
+                  MemberType memberType, boolean isBoard)
+    {
+        this.memberId = memberId;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.mail = mail;
+        this.creationDate = creationDate;
+        this.memberType = memberType;
+        this.isBoard = isBoard;
+
+    }
+
+    // Member for members_overview.html
     public Member(int memberId, String firstName,
                   String lastName, String mail,
                   int phoneNumber, Date creationDate,
