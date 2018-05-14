@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Members</title>
+</head>
+<body>
+
+<div>
+    <table>
+        <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Medlemstype</th>
+            <th>Oprettelses dato</th>
+            <th>Cpr</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="member: ${members}">
+            <td th:text="${member.firstName} + ' ' + ${member.lastName}"/>
+            <td th:text="${member.memberType}"/>
+            <td th:text="${member.subscription.payDay}"/>
+            <td>
+                <a type="button" class="btn btn-details btn:hover">Details</a>
+                <a type="button" class="btn btn-ed btn:hover">Edit</a>
+                <a type="button" class="btn btn-del btn:hover">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+
+
+    </table>
+</div>
+
+
+
+</body>
+
+
+
+
+
+
+
+<!--
+<body>
+<nav>
+    <a id="logo">KEA</a>
+    <a href="/students">Students</a>
+    <a href="/coursedata">Courses</a>
+    <a href="#">Enrollments</a>
+</nav>
+
+<div class="container">
+    <header>
+        <h1>Students</h1>
+        <p>Enrolled Students at KEA</p>
+    </header>
+
+    <a type="button" href="/create" class="btn btn-create btn:hover">Create</a>
+    <p></p>
+    <table>
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Enrollment Date</th>
+            <th>Cpr</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="student: ${students}">
+            <td th:text="${student.studentId}"/>
+            <td th:text="${student.firstName}"/>
+            <td th:text="${student.lastName}"/>
+            <td th:text="${student.enrollmentDate}"/>
+            <td th:text="${student.cpr}"/>
+            <td>
+                <a type="button" class="btn btn-details btn:hover">Details</a>
+                <a type="button" class="btn btn-ed btn:hover">Edit</a>
+                <a type="button" class="btn btn-del btn:hover">Delete</a>
+                <a class="btn btn-create btn:hover" th:href = "'mailto:' + ${student.firstName}">Send email </a>
+            </td>
+        </tr>
+        </tbody>
+
+
+    </table>
+    <footer>
+        &copy;2017 Christian Grye Skydt
+    </footer>
+</div>
+</body>
+-->
+
+
+</html>

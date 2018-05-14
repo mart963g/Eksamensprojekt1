@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Medlemskartotek</title>
+        <link href="kartotek_style.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <a id="logo">ENGGÅRDEN</a>
+            <a href="/home">Hjem</a>
+            <a href="/members">Medlemskartotek</a>
+            <a href="/mail">Send E-mail</a>
+            <a href="/contribution">Støtte</a>
+            <a href="/statistics">Statistik</a>
+            <a href="/subscriptionLog">Kontingent Ændringer</a>
+        </nav>
+
+        <div class="container">
+            <header class="header1">
+                <h1>Medlemskartotek</h1>
+                <p>Herfra kan du se den fulde liste over foreningens medlemmer.<br>
+                    Vælg et medlem, for at se alle deres detaljer, eller redigere dem.<br></p>
+            </header>
+
+            <a type="button" href="/create" class="btn btn-create btn:hover">Opret Nyt Medlem</a>
+            <p></p>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Navn</th>
+                        <th>Medlemstype</th>
+                        <th>Kontingent</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:each="member: ${members}">
+                        <td th:text="${member.firstName + ' ' + member.lastName}"/>
+                        <td th:text="${member.memberType}"/>
+                        <td th:text="${member.subscription.payDay}"/>
+                        </td>
+                        <td>
+                            <a type="button" class="btn btn-ed btn:hover">Vælg Medlem</a>
+                            <a class="btn btn-create btn:hover" th:href = "'mailto:' + ${member.mail}">Send email </a>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer>
+                &copy;2017 12-tals gutterne
+            </footer>
+        </div>
+    </body>
+</html>
