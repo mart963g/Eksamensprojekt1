@@ -1,6 +1,6 @@
 package enggaarden.app.models.interfaces;
 
-import enggaarden.app.models.User;
+import enggaarden.app.models.Entities.User;
 
 public interface UserRepositoryInterface
 {

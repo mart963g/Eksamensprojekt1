@@ -1,7 +1,7 @@
 package enggaarden.app.models.Factories;
 
-import enggaarden.app.models.Member;
-import enggaarden.app.models.MemberType;
+import enggaarden.app.models.Entities.Member;
+import enggaarden.app.models.Entities.MemberType;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import java.util.ArrayList;
 import java.util.List;

@@ -1,13 +1,14 @@
 package enggaarden.app.models.repositories;
 
-import enggaarden.app.models.Address;
-import enggaarden.app.models.Member;
-import enggaarden.app.models.Subscription;
+import enggaarden.app.models.Entities.Member;
+import enggaarden.app.models.Entities.MemberType;
 import enggaarden.app.models.interfaces.MemberRepositoryInterface;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 @Repository
 public class MemberRepository implements MemberRepositoryInterface
@@ -31,8 +32,10 @@ public class MemberRepository implements MemberRepositoryInterface
     @Override
     public SqlRowSet get(int id)
     {
-        String sql = "SELECT * FROM Members " +
-                "WHERE MemberId = " + id + ";";
+        String sql = "SELECT * FROM Members m " +
+                "JOIN addresses a USING(memberId)" +
+                "JOIN subscriptions s USING(memberId)" +
+                " WHERE MemberId = " + id + ";";
 
         SqlRowSet rowSet = jdbc.queryForRowSet(sql);
 
@@ -41,7 +44,7 @@ public class MemberRepository implements MemberRepositoryInterface
 
     // Posting a full member to the db
     @Override
-    public void postMember(Member member, Address address, Subscription subscription)
+    public void postMember(Member member)
     {
         String count = "SELECT MAX(memberId) FROM Members";
         SqlRowSet rowSet = jdbc.queryForRowSet(count);
@@ -63,27 +66,52 @@ public class MemberRepository implements MemberRepositoryInterface
 
         String sqlAdd = "INSERT INTO addresses VALUES(" +
                 (i+1) + ", '" +
-                address.getStreet() + "', " +
-                address.getZipCode() + ", '" +
-                address.getCity() + "')";
+                member.getAddress().getStreet() + "', " +
+                member.getAddress().getZipCode() + ", '" +
+                member.getAddress().getCity() + "')";
 
         jdbc.update(sqlAdd);
 
 
         String sqlSub = "INSERT INTO subscriptions VALUES(" +
                 (i+1) + ", '" +
-                subscription.getSqlDate() + "')";
+                member.getSubscription().getSqlDate() + "')";
 
         jdbc.update(sqlSub);
 
     }
 
+    // Posting an updated member to the db
     @Override
     public void updateMember(Member member)
     {
 
+        String sqlMem = "UPDATE members " +
+                "SET firstName = '" + member.getFirstName() + "', " +
+                "lastName = '" + member.getLastName() + "', " +
+                "mail = '" + member.getMail() + "', " +
+                "phoneNumber = " + member.getPhoneNumber() + ", " +
+                "creationDate = '" + member.getSqlDate() + "', " +
+                "memberType = '" + member.getMemberType().toString() + "', " +
+                "isBoard = " + member.isBoard() + " " +
+                "WHERE memberId = " + member.getMemberId() + ";";
+        jdbc.update(sqlMem);
+
+        String sqlAdd = "UPDATE addresses " +
+                "SET streetName = '" + member.getAddress().getStreet()  + "', " +
+                "zipCode = " + member.getAddress().getZipCode()  + ", " +
+                "city = '" + member.getAddress().getCity()  + "' " +
+                "WHERE memberId = " + member.getMemberId() + ";";
+        jdbc.update(sqlAdd);
+
+        String sqlSub = "UPDATE subscriptions " +
+                "SET payDate = '" + member.getSubscription().getSqlDate() + "' " +
+                "WHERE memberId = " + member.getMemberId() + ";";
+        jdbc.update(sqlSub);
+
     }
 
+    // Delete a member from the db
     @Override
     public void delete(int id)
     {

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Redigér støtte</title>
+        <link href="../kartotek_style.css" rel="stylesheet">
+    </head>
+    <body>
+        <nav>
+            <a href="/home" id="logo" class="logo-img">
+                <img src="/Images/enggaarden_logo.png" alt="enggårdens logo">
+            </a>
+            <a href="/home">Hjem</a>
+            <a href="/members">Medlemskartotek</a>
+            <a href="/emails">Gruppemail</a>
+            <a href="/contributions">Støtte</a>
+            <a href="/statistics">Statistik</a>
+            <a href="/subscriptionLog">Kontingent Ændringer</a>
+        </nav>
+        <div class="container">
+            <form method="post" th:action="@{/contributions/edit}">
+                <input type="hidden" th:field="${contribution.contributionId}"/>
+                <h1>Støtteoplysninger</h1>
+                <p>Aktivitet</p>
+                <select th:field="${contribution.activity}">
+                    <option th:each="act :${activities}" th:value="${act}" th:text="${act}"/>
+                </select>
+                <p>Beløb</p>
+                <input type="number" step="0.05" th:field="${contribution.amount}" value="${contribution.amount}"/>
+                <p>Udbetalingsdato</p>
+                <input type="date" th:field="${contribution.paymentDate}" value="${contribution.paymentDate}"/>
+                <p></p>
+                <a href="/contributions" type="button" class="btn btn-del btn:hover">Annullér</a> <input type="submit" value="Godkend" class="btn"/>
+            </form>
+        </div>
+    </body>
+</html>

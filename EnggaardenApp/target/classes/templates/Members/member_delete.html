@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="kartotek_style.css" rel="stylesheet">
+</head>
+    <body>
+        <nav>
+            <a href="/home" id="logo" class="logo-img">
+                <img src="/Images/enggaarden_logo.png" alt="enggårdens logo">
+            </a>
+            <a href="/home">Hjem</a>
+            <a href="/members">Medlemskartotek</a>
+            <a href="/emails">Gruppemail</a>
+            <a href="/contributions">Støtte</a>
+            <a href="/statistics">Statistik</a>
+            <a href="/subscriptionLog">Kontingent Ændringer</a>
+        </nav>
+        <div class="container">
+            <h2>Are you sure you want to delete</h2>
+
+            <form action="#" th:action="@{/delete}"  method="post" >
+                <p th:text="${member.firstName + ' ' +  member.lastName}"></p>
+                <input type="hidden"  th:field="${member.memberId}"  />
+                <input type="submit" value="YES" class="btn btn-del w"/>
+                <a href="/student/students" class="btn btn-create w" >NO</a>
+            </form>
+        </div>
+    </body>
+</html>

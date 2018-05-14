@@ -1,18 +1,16 @@
 package enggaarden.app.controllers;
 
-import enggaarden.app.models.Address;
 import enggaarden.app.models.Factories.MemberFactory;
-import enggaarden.app.models.Member;
-import enggaarden.app.models.MemberType;
-import enggaarden.app.models.Subscription;
+import enggaarden.app.models.Entities.Member;
+import enggaarden.app.models.Entities.MemberType;
 import enggaarden.app.models.interfaces.MemberRepositoryInterface;
 import enggaarden.app.models.repositories.MemberRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
 
 @Controller
 public class MemberController
@@ -21,27 +19,56 @@ public class MemberController
     private MemberRepositoryInterface memberRepository = new MemberRepository();
     private MemberFactory memberFactory = new MemberFactory();
 
+    /*
+    Overview Methods
+     */
     @GetMapping("/members")
-    public String home(Model model)
+    public String membersOverview(Model model)
     {
         model.addAttribute("members",memberFactory.getMembers(memberRepository.get()));
         return "/Members/members_overview";
     }
 
+    @GetMapping("/details")
+    public String memberDetails(@RequestParam("memberId") int id, Model model)
+    {
+        model.addAttribute("member", memberFactory.getMember(memberRepository.get(id)));
+        return "/Members/member_details";
+    }
+
+    /*
+    Create Methods
+     */
     @GetMapping("/create")
-    public String create(Model model)
+    public String createMember(Model model)
     {
         model.addAttribute("member",new Member());
         model.addAttribute("memberTypes", MemberType.values());
-        model.addAttribute("address", new Address());
-        model.addAttribute("subscription", new Subscription());
-        return "/Members/create_member";
+        return "/Members/member_create";
     }
 
     @PostMapping("/create")
-    public String create(@ModelAttribute Member member, Address address, Subscription subscription)
+    public String createMember(@ModelAttribute Member member)
     {
-        memberRepository.postMember(member, address, subscription);
+        memberRepository.postMember(member);
+        return "redirect:/members";
+    }
+
+    /*
+    Edit Methods
+     */
+    @GetMapping("/edit")
+    public String editMember(@RequestParam("memberId") int id, Model model)
+    {
+        model.addAttribute("member", memberFactory.getMember(memberRepository.get(id)));
+        model.addAttribute("memberTypes",MemberType.values());
+        return "/Members/member_edit";
+    }
+
+    @PostMapping("/edit")
+    public String editMember(@ModelAttribute Member member)
+    {
+        memberRepository.updateMember(member);
         return "redirect:/members";
     }
 }

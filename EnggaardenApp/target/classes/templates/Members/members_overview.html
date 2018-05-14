@@ -8,11 +8,13 @@
     </head>
     <body>
         <nav>
-            <a id="logo">ENGGÅRDEN</a>
+            <a href="/home" id="logo" class="logo-img">
+                <img src="/Images/enggaarden_logo.png" alt="enggårdens logo">
+            </a>
             <a href="/home">Hjem</a>
             <a href="/members">Medlemskartotek</a>
-            <a href="/mail">Send E-mail</a>
-            <a href="/contribution">Støtte</a>
+            <a href="/emails">Gruppemail</a>
+            <a href="/contributions">Støtte</a>
             <a href="/statistics">Statistik</a>
             <a href="/subscriptionLog">Kontingent Ændringer</a>
         </nav>
@@ -42,7 +44,7 @@
                         <td th:text="${member.subscription.payDay}"/>
                         </td>
                         <td>
-                            <a type="button" class="btn btn-ed btn:hover">Vælg Medlem</a>
+                            <a th:href="${'/details?memberId='+member.memberId}" type="button" class="btn btn-ed btn:hover">Vælg Medlem</a>
                             <a class="btn btn-create btn:hover" th:href = "'mailto:' + ${member.mail}">Send email </a>
                         </td>
                     </tr>

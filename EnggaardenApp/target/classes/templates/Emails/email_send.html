@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org"
+      xmlns:xlmns="http://www.w3.org/1999/xhtml">
+    <head>
+        <meta charset="UTF-8">
+        <title>Send Gruppemail</title>
+        <link href="/kartotek_style.css" rel="stylesheet">
+
+    </head>
+    <body>
+        <nav>
+            <a href="/home" id="logo" class="logo-img">
+                <img src="/Images/enggaarden_logo.png" alt="enggårdens logo">
+            </a>
+            <a href="/home">Hjem</a>
+            <a href="/members">Medlemskartotek</a>
+            <a href="/emails">Gruppemail</a>
+            <a href="/contributions">Støtte</a>
+            <a href="/statistics">Statistik</a>
+            <a href="/subscriptionLog">Kontingent Ændringer</a>
+        </nav>
+        <div class="container">
+            <header class="header1">
+                <h1>Send Gruppemail</h1>
+                <p>Herfra kan du sende gruppemail til foreningens medlemmer. <br>
+                   Vælg en gruppe, hvorefter deres mail adresser bliver eksporteret til outlook.
+                </p>
+            </header>
+            <br><br><br>
+            <section id="mail buttons">
+                <div class="mail-container">
+                    <a th:href= "'mailto:' + ${primary}">
+                        <img src="/Images/if_mail_1164530.png" class="mail-image" alt="email icon" title="Mail til primære medlemmer" >
+                        <p class="mail-image-text">Primære</p>
+                    </a>
+                </div>
+                <div class="mail-container">
+                    <a th:href= "'mailto:' + ${secondary}">
+                        <img src="/Images/if_mail_1164530.png" class="mail-image" alt="email icon" title="Mail til sekundære medlemmer" >
+                        <p class="mail-image-text">Sekundære</p>
+                    </a>
+                </div>
+                <div class="mail-container">
+                    <a th:href= "'mailto:' + ${external}">
+                        <img src="/Images/if_mail_1164530.png" class="mail-image" alt="email icon" title="Mail til eksterne medlemmer" >
+                        <p class="mail-image-text">Eksterne</p>
+                    </a>
+                </div>
+                <div class="mail-container">
+                    <a th:href= "'mailto:' + ${all}">
+                        <img src="/Images/if_mail_1164530.png" class="mail-image" alt="email icon" title="Mail til alle medlemmer" >
+                        <p class="mail-image-text">Alle</p>
+                    </a>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
